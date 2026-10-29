@@ -35,14 +35,17 @@ code{font-family:var(--f-mono);font-size:.86em;background:var(--lane);padding:.1
 .wrap{display:grid;grid-template-columns:260px minmax(0,1fr);gap:28px;max-width:1340px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .wrap.notoc{grid-template-columns:minmax(0,1fr)} .wrap.notoc .toc{display:none}
 .toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 60px);align-self:start;max-height:calc(100vh - 76px);overflow:auto;padding-block:20px;font-size:14px}
-.toc input{width:100%;font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg2);color:var(--ink)}
+.sbox{position:relative;flex:0 1 320px;min-width:0}
+.sbox input{width:100%;font:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
 .toc .tbar{display:flex;gap:4px;margin:8px 0 12px}
 .toc details{border-left:3px solid var(--c);padding-left:10px;margin-bottom:12px}
 .toc summary{font-family:var(--f-disp);font-weight:600;cursor:pointer;color:var(--c)}
 .toc ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:2px}
 .toc a{color:var(--ink2);text-decoration:none;display:block;padding:2px 6px;border-radius:5px}
 .toc a:hover,.toc a.on{background:var(--acc-soft);color:var(--ink)}
-#sres{font-size:13px;color:var(--ink2);margin-top:6px}
+#sres{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:30;max-height:60vh;overflow:auto;background:var(--bg2);border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 20px -8px rgba(0,0,0,.35);padding:6px;font-size:13px;color:var(--ink2)}
+#sres a{display:block;padding:4px 8px;border-radius:5px;text-decoration:none;color:var(--ink)}
+#sres a:hover{background:var(--acc-soft)}
 main{min-width:0;padding-block:24px 80px}
 .hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;padding-block:8px 28px;border-bottom:1px solid var(--line)}
 .eyebrow{font:600 12px var(--f-body);letter-spacing:.02em;color:var(--acc)}
@@ -155,20 +158,19 @@ figcaption{font-size:13px;color:var(--ink2);margin-top:6px}
 [hidden]{display:none!important}
 #lb .anno{max-width:min(96vw,1700px);cursor:zoom-out;border:0}
 @media (max-width:980px){.wrap{grid-template-columns:minmax(0,1fr)}.toc{position:static;max-height:none;padding-block:12px 0}.howto,.ben,.aiblk{grid-template-columns:minmax(0,1fr)}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.tri,.legend,.cfg,.qgrid{grid-template-columns:minmax(0,1fr)}dl.w5{grid-template-columns:auto minmax(0,1fr)}.hero{grid-template-columns:minmax(0,1fr)}.logo{display:none}}
-@media (max-width:560px){.rcols{grid-template-columns:minmax(0,1fr)}.top .ttl{display:none}.jrow>span{width:auto}}
+@media (max-width:560px){.rcols{grid-template-columns:minmax(0,1fr)}.top .ttl{display:none}.sbox{flex:1}.jrow>span{width:auto}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 html{scroll-behavior:smooth}
 </style>
 
 <header class="top">
  <span class="brand">Base.vn</span><span class="ttl">Hướng dẫn sử dụng · QT Quản lý công nợ phải thu</span>
+ <div class="sbox"><input id="q" type="search" placeholder="Tìm trong tài liệu ( / )" aria-label="Tìm trong tài liệu"><div id="sres" hidden></div></div>
  <div class="tools"><button type="button" id="fsm" aria-label="Chữ nhỏ hơn">A−</button><button type="button" id="fs0" aria-label="Cỡ chữ mặc định">100%</button><button type="button" id="fsp" aria-label="Chữ lớn hơn">A+</button><button type="button" id="thm" aria-label="Đổi giao diện sáng tối">◐</button></div>
 </header>
 
 <div class="wrap" id="wrap">
 <nav class="toc" aria-label="Mục lục">
- <input id="q" type="search" placeholder="Tìm trong tài liệu ( / )" aria-label="Tìm trong tài liệu">
- <div id="sres" hidden></div>
  <div class="tbar"><button type="button" class="tbtn" id="tOpen">⊞ Mở hết</button><button type="button" class="tbtn" id="tClose">⊟ Thu gọn</button><button type="button" class="tbtn" id="tHide">« Ẩn</button></div>
  <details open style="--c:var(--p1)"><summary>I · Tổng quan</summary><ul><li><a href="#s2">1. Lợi ích</a></li></ul></details>
  <details open style="--c:var(--p2)"><summary>II · Hướng dẫn chi tiết</summary><ul><li><a href="#s3">2. Hành trình × Vai trò</a></li><li><a href="#s4">3. Hành trình 6 bước</a></li><li><a href="#b1">B1 Tạo phiếu theo đơn vị</a></li><li><a href="#b2">B2 AI đọc bảng công nợ</a></li><li><a href="#b3">B3 Ban Điều hành duyệt</a></li><li><a href="#b4">B4 Giám đốc đơn vị</a></li><li><a href="#b5">B5 Cập nhật tiền đã thu</a></li><li><a href="#b6">B6 Kế toán xác nhận</a></li><li><a href="#s6">5. Dùng AI</a></li></ul></details>
